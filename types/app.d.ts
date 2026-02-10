@@ -56,6 +56,15 @@ export interface ILoginResult {
   // profile: IProfile | null;
 }
 
+export interface ILoginResponse {
+  status: boolean;
+  message: string;
+  data: {
+    user: IUser;
+    token: string;
+  };
+}
+
 export interface Ilogin {
   email: string;
   password: string;
