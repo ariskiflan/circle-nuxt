@@ -65,6 +65,15 @@ export interface ILoginResponse {
   };
 }
 
+export interface IRegisterResponse {
+  status: boolean;
+  message: string;
+  data: {
+    user: IUser;
+  profile: IProfile;
+  };
+}
+
 export interface Ilogin {
   email: string;
   password: string;

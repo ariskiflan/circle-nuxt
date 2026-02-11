@@ -7,7 +7,7 @@
 
     <!-- Sidebar -->
     <div class="hidden md:block sticky top-0 h-screen">
-      <p>ini sidebar</p>
+      <LayoutSidebar />
     </div>
 
     <!-- Main Content -->
@@ -17,7 +17,7 @@
 
     <!-- Rightbar -->
     <div class="hidden xl:block sticky top-0 h-screen">
-      <p>ini rightbar</p>
+      <LayoutRightbar />
     </div>
 
   </div>

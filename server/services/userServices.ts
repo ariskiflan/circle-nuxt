@@ -60,3 +60,42 @@ export const login = async (payload: Ilogin) => {
 
   return { user: safeUser, token };
 };
+
+export const getUsers = async () => {
+  return await db.user.findMany({
+    select: {
+      id: true,
+      username: true,
+      fullname: true,
+      email: true,
+    },
+  });
+};
+
+export const getUser = async (id: number) => {
+  return await db.user.findFirst({
+    where: { id },
+    select: {
+      id: true,
+      username: true,
+      fullname: true,
+      profile: {
+        select: {
+          avatar: true,
+          cover: true,
+          bio: true,
+        },
+      },
+      follower: {
+        select: {
+          followerId: true,
+        },
+      },
+      following: {
+        select: {
+          followingId: true,
+        },
+      },
+    },
+  })
+}

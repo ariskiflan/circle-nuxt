@@ -5,7 +5,6 @@ import { createError, sendError } from "h3";
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
-    console.log("Register payload:", body);
 
     const result = await registerService(body);
 
