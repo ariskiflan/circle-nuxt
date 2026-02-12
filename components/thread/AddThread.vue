@@ -35,7 +35,11 @@ const handlePostThreads = async (e) => {
 
     if (postThreads.value.content || postThreads.value.image) {
       await createThread(postThreads.value);
-      
+      useToastify("Add Thread Success", {
+            autoClose: 1000,
+            position: ToastifyOption.POSITION.TOP_CENTER,
+        });
+
       // Beri tahu parent untuk refresh data
       emit('success');
       

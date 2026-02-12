@@ -21,8 +21,14 @@ const handleLogin = async () => {
     const res = await login(formInput.value)
 
     if (res.status) {
+      useToastify("Login Berhasil", {
+        autoClose: 1000,
+        position: ToastifyOption.POSITION.TOP_CENTER,
+      });
       await navigateTo("/")
     }
+
+
   } catch (err) {
     const error = err as {
       data?: { statusMessage?: string; message?: string };
@@ -53,8 +59,8 @@ const handleLogin = async () => {
     <!-- Form -->
     <form class="flex flex-col gap-5 w-full" @submit.prevent="handleLogin">
       <input
-v-model="formInput.email" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black" type="text"
-        placeholder="Email">
+v-model="formInput.email" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
+        type="text" placeholder="Email">
       <input
 v-model="formInput.password" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
         type="password" placeholder="Password">
@@ -71,9 +77,9 @@ type="submit" :disabled="isLoading" class="bg-[#04A51E] text-white w-full py-2 r
     <div>
       <p class="text-md md:text-xl">
         Don’t have an account yet?
-        <RouterLink to="/auth/register" class="text-[#04A51E] cursor-pointer">
+        <NuxtLink to="/auth/register" class="text-[#04A51E] cursor-pointer">
           Sign up
-        </RouterLink>
+        </NuxtLink>
       </p>
     </div>
   </div>

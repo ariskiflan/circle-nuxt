@@ -24,13 +24,23 @@ const { data: user } = await useAsyncData(
   "profile", getProfile
 )
 
+const refreshThread = () => {
+  emit('refresh');
+};
+
 const handleDeletethread = async () => {
+
   try {
     await deleteThread(props.thread.id);
     showDeleteModal.value = false;
 
+    useToastify("Thread berhasil dihapus", {
+      autoClose: 1000,
+      position: ToastifyOption.POSITION.TOP_CENTER,
+    });
+
     // Memicu refresh data di parent (Home.vue)
-    emit('refresh');
+    refreshThread()
 
     // Catatan: Untuk Toast di Nuxt 3, Anda bisa menggunakan library seperti 
     // 'vue-sonner' atau 'nuxt-toastied' yang lebih ringan untuk Nuxt.
@@ -61,11 +71,11 @@ const openPreview = (src) => {
 
           <!-- Avatar dengan NuxtLink -->
           <NuxtLink :to="handleRedirectProfile()">
-          <div class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-700">
-            <img
+            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-700">
+              <img
 class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img/profile-circle.png'"
-              alt="avatar">
-          </div>
+                alt="avatar">
+            </div>
           </NuxtLink>
 
           <div class="flex flex-col gap-3 w-full">
@@ -90,9 +100,7 @@ class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img
 
               <!-- Grid Gambar -->
               <div v-if="thread.image?.length" class="grid grid-cols-2 gap-2">
-                <div
-v-for="(item, index) in thread.image" :key="index"
-                 >
+                <div v-for="(item, index) in thread.image" :key="index">
                   <img
 :src="item.image" alt="content"
                     class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
@@ -106,7 +114,7 @@ v-for="(item, index) in thread.image" :key="index"
 
             <div class="flex gap-5 items-center mt-2">
               <div class="flex gap-2 items-center">
-                <ThreadLikeThread v-if="thread.id" :thread-id="Number(thread.id)" />
+                <ThreadLikeThread v-if="thread.id" :thread-id="Number(thread.id)" @refresh="refreshThread" />
                 <span class="text-sm md:text-md text-gray-400 font-medium">
                   {{ thread._count?.like || 0 }} Likes
                 </span>
@@ -125,7 +133,7 @@ v-for="(item, index) in thread.image" :key="index"
 
           <!-- Tombol Hapus (Muncul jika userId cocok) -->
           <div
-v-if="user?.id === thread.userId"
+v-if="user?.id === thread.author.id"
             class="absolute top-0 right-0 cursor-pointer text-gray-500 hover:text-red-500 transition-colors"
             @click="showDeleteModal = true">
             <!-- Menggunakan Nuxt Icon -->

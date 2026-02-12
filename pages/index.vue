@@ -10,8 +10,12 @@ const userCookie = useCookie('user');
 const user = computed(() => userCookie.value || null);
 
 // Data Fetching: Menggunakan useAsyncData agar data diambil saat page load
-const { data: threads, refresh: refreshThreads } =
+const { data: threads, refresh: refreshThread } =
   await useAsyncData('threads', getThreads)
+
+const refreshThreads = async () => {
+  await refreshThread(); // Fungsi bawaan useAsyncData untuk ambil data ulang
+};
 
 // Fungsi Navigasi & Logout
 const openSidebar = () => showSidebar.value = true;
@@ -71,7 +75,7 @@ const handleLogout = () => {
     <!-- List Threads -->
     <div class="mt-5">
       <div v-for="item in threads" :key="item.id">
-        <ThreadItemThread :thread="item" />
+        <ThreadItemThread :thread="item" @refresh="refreshThreads" />
       </div>
     </div>
 

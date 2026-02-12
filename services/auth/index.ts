@@ -39,7 +39,7 @@ export const register = async (payload: {
 }) => {
   const { $api } = useNuxtApp()
 
-  const res = await $api<IRegisterResponse>("/auth/login", {
+  const res = await $api<IRegisterResponse>("/auth/register", {
     method: "POST",
     body: payload,
   })

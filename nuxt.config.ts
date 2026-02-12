@@ -5,7 +5,17 @@ export default defineNuxtConfig({
   css: [
     "~/assets/css//index.css"
   ],
-  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxt/icon'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxtjs/tailwindcss',
+    '@nuxt/icon',
+    'nuxt-toastify'
+  ],
+    toastify: {
+     autoClose: 2000,
+     position: 'top-right',
+     theme: 'auto',
+   },
    runtimeConfig: {
     cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME,
     cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,

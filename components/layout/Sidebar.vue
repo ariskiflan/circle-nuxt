@@ -13,6 +13,10 @@ const handleLogout = () => {
         // 2. Tutup Modal & Redirect
         showLogoutModal.value = false;
 
+        useToastify("Logout Berhasil", {
+            autoClose: 1000,
+            position: ToastifyOption.POSITION.TOP_CENTER,
+        });
         // Gunakan navigateTo untuk best practice di Nuxt
         return navigateTo("/auth/login");
     } catch (error) {
