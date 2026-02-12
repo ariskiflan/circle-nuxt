@@ -7,15 +7,11 @@ const showLogoutModal = ref(false);
 
 // Mengambil data user dari cookie yang sudah kita set saat login
 const userCookie = useCookie('user');
-const user = computed(() => userCookie.value ? JSON.parse(userCookie.value) : {});
+const user = computed(() => userCookie.value || null);
 
 // Data Fetching: Menggunakan useAsyncData agar data diambil saat page load
-const { data: threads, refresh: refreshThreads } = await useAsyncData('threads',  async () =>{
- const res = await getThreads()
- console.log(res, 'ini data threads');
-
- return res
-});
+const { data: threads, refresh: refreshThreads } =
+  await useAsyncData('threads', getThreads)
 
 // Fungsi Navigasi & Logout
 const openSidebar = () => showSidebar.value = true;
@@ -42,6 +38,8 @@ const handleLogout = () => {
 </script>
 
 <template>
+
+ 
   <div class="w-full mb-20">
     <!-- Header Sticky -->
     <div class="sticky top-0 pt-10 z-10 bg-[#1d1d1d]">
@@ -54,7 +52,6 @@ const handleLogout = () => {
             <img class="object-cover w-full h-full" :src="user.avatar || '/img/profile-circle.png'" alt="avatar">
           </div>
         </div>
-
         <!-- Overlay Sidebar -->
         <div v-if="showSidebar" class="fixed inset-0 bg-black/50 z-40 xl:hidden" @click="closeSidebar" />
 

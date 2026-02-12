@@ -1,8 +1,9 @@
-// import type { Ithread } from "~/types/app"
+import type { Ithread, ApiResponse } from "~/types/app"
 
-export const getThreads = () => {
+export const getThreads = async () => {
   const { $api } = useNuxtApp()
-  return $api("/thread")
+  const res = await $api<ApiResponse<Ithread[]>>("/thread")
+  return res.data
 }
 
 export const getThreadById = (id: number) => {

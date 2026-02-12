@@ -5,6 +5,11 @@ export interface Iregister {
   password: string;
 }
 
+export interface ILike {
+  userId: number;
+  threadId: number;
+}
+
 export type authMidlleware = {
   id: string;
 };
@@ -74,7 +79,18 @@ export interface IRegisterResponse {
   };
 }
 
+export interface ApiResponse<T> {
+  status: boolean
+  message: string
+  data: T
+}
+
 export interface Ilogin {
   email: string;
   password: string;
+}
+
+export interface Ifollow {
+  followerId: number;
+  followingId: number;
 }

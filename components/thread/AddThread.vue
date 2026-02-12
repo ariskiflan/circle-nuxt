@@ -24,7 +24,7 @@ const route = useRoute();
 
 // Ambil data user dari cookie (pengganti Vuex)
 const userCookie = useCookie('user');
-const user = computed(() => userCookie.value ? JSON.parse(userCookie.value) : null);
+const user = computed(() => userCookie.value || null);
 
 const handlePostThreads = async (e) => {
   e.preventDefault();

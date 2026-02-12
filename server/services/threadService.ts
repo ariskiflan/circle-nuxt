@@ -1,4 +1,4 @@
-import type { Ithread } from "~/types/app";
+// import type { Ithread } from "~/types/app";
 import { db } from "../db";
 
 
@@ -156,18 +156,19 @@ export const getThreadByUserId = async (id: number) => {
   });
 };
 
-export const createThread = async (payload: Ithread) => {
+export const createThread = async (payload: any) => {
   const thread = await db.thread.create({
     data: {
       content: payload.content,
       userId: payload.userId,
-      threadId: payload.threadId ? +payload.threadId : null,
+      threadId: payload.threadId ? Number(payload.threadId) : null,
     },
   });
 
+  // payload.image sekarang berisi array [{ image: 'https://res.cloudinary...' }]
   if (payload.image && payload.image.length > 0) {
     await db.threadImage.createMany({
-      data: payload.image.map((img) => ({
+      data: payload.image.map((img: any) => ({
         image: img.image,
         threadId: thread.id,
       })),
@@ -176,6 +177,7 @@ export const createThread = async (payload: Ithread) => {
 
   return thread;
 };
+
 
 export const deleteThread = async (idThread: number, userId: number) => {
   const existedThread = await db.thread.findFirst({
