@@ -81,10 +81,11 @@ class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img
               <p class="font-semibold text-md md:text-xl text-white">
                 {{ thread.author?.fullname }}
               </p>
+                 <div class="w-2 h-2 rounded-full bg-gray-400" />
               <p class="text-gray-400 text-sm md:text-md">
                 @{{ thread.author?.username }}
               </p>
-              <div class="w-1 h-1 rounded-full bg-gray-400" />
+              <div class="w-2 h-2 rounded-full bg-gray-400" />
               <p class="text-gray-400 text-xs md:text-sm">
                 <!-- Menggunakan Plugin global $timeAgo yang kita buat tadi -->
                 {{ $timeAgo(thread.posted_at) }}

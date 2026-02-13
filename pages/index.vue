@@ -62,7 +62,7 @@ const handleLogout = () => {
 
         <!-- Sidebar Drawer -->
         <transition name="slide">
-          <div v-if="showSidebar" class="fixed top-0 right-0 h-screen w-full md:w-96 bg-black z-50 xl:hidden shadow-xl">
+          <div v-if="showSidebar" class="fixed top-0 right-0 h-screen w-80 md:w-96 bg-black z-50 xl:hidden shadow-xl">
             <!-- Nuxt otomatis mendeteksi komponen di folder components/ -->
             <LayoutRightbar @close="closeSidebar" />
           </div>
@@ -114,3 +114,21 @@ v-model="showLogoutModal" title="Logout?" description="You will be signed out fr
       confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="handleLogout" />
   </div>
 </template>
+
+<style scoped>
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-enter-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+</style>

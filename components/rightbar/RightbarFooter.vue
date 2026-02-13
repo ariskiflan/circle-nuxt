@@ -46,11 +46,11 @@ const year = date.getFullYear();
       </div>
   
   
-      <!-- <div class="flex justify-center gap-4">
-        <Icon icon="mdi:instagram" width="22" height="22" />
-        <Icon icon="mdi:github" width="22" height="22" />
-        <Icon icon="ic:baseline-facebook" width="22" height="22" />
-      </div> -->
+      <div class="flex justify-center gap-4">
+         <UiBaseIcon name="mdi:instagram" size="22" />
+          <UiBaseIcon name="mdi:github" size="22"  />
+          <UiBaseIcon name="ic:baseline-facebook" size="22"  />
+      </div>
   
       <div class="flex justify-center items-center gap-2 text-xs">
         <span>Powered by</span>

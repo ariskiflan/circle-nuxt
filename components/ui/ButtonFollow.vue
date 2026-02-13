@@ -12,7 +12,7 @@ const props = defineProps({
 const route = useRoute();
 const isFollowing = ref(false);
 
-const { data: currentUser } = await useAsyncData(
+const { data: currentUser } = useAsyncData(
   "profile", getProfile
 )
 const targetUserId = computed(() => {
