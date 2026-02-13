@@ -3,11 +3,8 @@ import { getProfile } from '~/services/profile';
 
 const isEditModalOpen = ref(false);
 
-const { data: user, pending } = useAsyncData(
-  "profile", getProfile,
-  {
-    lazy: true,  // Component render dulu, fetch di background
-  }
+const { data: user, pending } = useLazyAsyncData(
+  "profile", getProfile
 )
 
 const openEditModal = () => {
@@ -57,7 +54,7 @@ const closeEditModal = () => {
         </button>
       </div>
 
-      <div class="flex flex-col lg:gap-2 gap-1">
+      <div class="flex flex-col gap-2 ">
         <div class="flex items-center gap-2">
           <p class="text-md md:text-xl font-semibold">{{ user.user.fullname }}</p>
           <div class="w-2 h-2 rounded-full bg-gray-400" />
@@ -82,6 +79,8 @@ const closeEditModal = () => {
       </div>
     </div>
 
+    <div class="z-100">
     <UiModalEditProfile :is-open="isEditModalOpen" :user="user" @close="closeEditModal" @updated="handleSaveProfile" />
+    </div>
   </div>
 </template>

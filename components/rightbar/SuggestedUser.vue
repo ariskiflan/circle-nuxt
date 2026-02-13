@@ -1,11 +1,8 @@
 <script setup>
 import { getUserNotId } from '~/services/user';
 
-const { data: suggestedUsers, pending } = useAsyncData(
-    "suggested-users", getUserNotId,
-    {
-    lazy: true,  // Component render dulu, fetch di background
-  }
+const { data: suggestedUsers, pending } = useLazyAsyncData(
+    "suggested-users", getUserNotId 
 )
 
 </script>

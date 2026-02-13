@@ -6,13 +6,13 @@ const showSidebar = ref(false);
 const showPostModal = ref(false);
 const showLogoutModal = ref(false);
 
-const { data: user } = await useAsyncData(
+const { data: user } =  useLazyAsyncData(
   "profile", getProfile
 )
 
 // Data Fetching: Menggunakan useAsyncData agar data diambil saat page load
 const { data: threads, refresh: refreshThread } =
-  await useAsyncData('threads', getThreads)
+   useLazyAsyncData('threads', getThreads)
 
 const refreshThreads = async () => {
   await refreshThread(); // Fungsi bawaan useAsyncData untuk ambil data ulang
@@ -108,7 +108,8 @@ const handleLogout = () => {
     </div>
 
     <!-- Modals -->
-    <!-- <ModalAddThread v-model="showPostModal" @success="refreshThreads" /> -->
+    <ThreadModalAddThread v-model="showPostModal" />
+
     <UiConfirmModal
 v-model="showLogoutModal" title="Logout?" description="You will be signed out from your account."
       confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="handleLogout" />

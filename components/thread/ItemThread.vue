@@ -18,7 +18,7 @@ const showImageModal = ref(false);
 const selectedImage = ref(null);
 
 
-const { data: user } = await useAsyncData(
+const { data: user } =  useLazyAsyncData(
   "profile", getProfile
 )
 

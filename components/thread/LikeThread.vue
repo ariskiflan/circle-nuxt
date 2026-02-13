@@ -13,7 +13,7 @@ const emit = defineEmits(['refresh']);
 // 1. Ambil data secara asinkron dengan useAsyncData
 // Kita gunakan key unik `like-{id}` agar Nuxt bisa membedakan cache antar thread
 // Gunakan template literal agar key berbeda untuk tiap thread
-const { data: likeRes, refresh: refreshLikeStatus } = await useAsyncData(
+const { data: likeRes, refresh: refreshLikeStatus } =  useLazyAsyncData(
     `like-${props.threadId}`,
     () => getCurrentLike(props.threadId)
 );

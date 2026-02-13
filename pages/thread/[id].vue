@@ -6,10 +6,10 @@ const route = useRoute();
 const id = route.params.id
 
 const { data: threadDetail, refresh: refreshThread } =
-    await useAsyncData(`thread-${id}`, () => getThreadById(Number(id)));
+     useLazyAsyncData(`thread-${id}`, () => getThreadById(Number(id)));
 
 const { data: replies, refresh: refreshReplies } =
-    await useAsyncData(`replies-${id}`, () => getReplies(Number(id)));
+     useLazyAsyncData(`replies-${id}`, () => getReplies(Number(id)));
 
 const emitRefreshThread = () => {
     refreshThread()

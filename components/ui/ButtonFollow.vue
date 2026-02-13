@@ -12,7 +12,7 @@ const props = defineProps({
 const route = useRoute();
 const isFollowing = ref(false);
 
-const { data: currentUser } = useAsyncData(
+const { data: currentUser } = useLazyAsyncData(
   "profile", getProfile
 )
 const targetUserId = computed(() => {

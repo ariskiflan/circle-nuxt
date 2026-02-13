@@ -21,7 +21,7 @@ const props = defineProps({
 // const props = defineProps<Props>()
 const emit = defineEmits(["close"])
 
-const { refresh: refreshProfile } = await useAsyncData(
+const { refresh: refreshProfile } =  useLazyAsyncData(
     "profile", getProfile
 )
 
