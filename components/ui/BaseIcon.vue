@@ -8,5 +8,10 @@ defineProps<{
 </script>
 
 <template>
-  <Icon :icon="name" :width="size || 20" :height="size || 20" />
+  <Icon
+    :icon="name"
+    :width="size || 20"
+    :height="size || 20"
+    v-bind="$attrs"
+  />
 </template>

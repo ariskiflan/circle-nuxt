@@ -17,9 +17,7 @@ const showDeleteModal = ref(false);
 const showImageModal = ref(false);
 const selectedImage = ref(null);
 
-// Ambil User dari Cookie (Pengganti Vuex store.getters)
-// const userCookie = useCookie('user');
-// const user = computed(() => userCookie.value || null);
+
 const { data: user } = await useAsyncData(
   "profile", getProfile
 )
@@ -121,7 +119,7 @@ class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img
               </div>
 
               <div class="flex gap-2 items-center">
-                <NuxtLink :to="`/thread-detail/${thread.id}`" class="flex gap-2 items-center hover:opacity-70">
+                <NuxtLink :to="`/thread/${thread.id}`" class="flex gap-2 items-center hover:opacity-70">
                   <img src="/img/reply.png" class="w-5 md:w-6" alt="Reply">
                   <span class="text-sm md:text-md text-gray-400 font-medium">
                     {{ thread._count?.replies || 0 }} Replies

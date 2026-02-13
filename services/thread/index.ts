@@ -6,9 +6,10 @@ export const getThreads = async () => {
   return res.data
 }
 
-export const getThreadById = (id: number) => {
+export const getThreadById = async (id: number) => {
   const { $api } = useNuxtApp()
-  return $api(`/thread/${id}`)
+  const res = await $api<ApiResponse<Ithread[]>>(`/thread/${id}`)
+  return res.data
 }
 
 export const getThreadByUserId = (id: number) => {
@@ -16,9 +17,10 @@ export const getThreadByUserId = (id: number) => {
   return $api(`/thread/user/${id}`)
 }
 
-export const getReplies = (id: number) => {
+export const getReplies = async (id: number) => {
   const { $api } = useNuxtApp()
-  return $api(`/thread/${id}/replies`)
+  const res = await $api<ApiResponse<Ithread[]>>(`/thread/${id}/replies`)
+  return res.data
 }
 
 export const getThreadByToken = () => {

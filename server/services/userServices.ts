@@ -99,3 +99,31 @@ export const getUser = async (id: number) => {
     },
   })
 }
+
+export const getUserNotId = async (id: number) => {
+  return await db.user.findMany({
+    where: {
+      NOT: {
+        id: id,
+      },
+    },
+    include: {
+      follower: {
+        select: {
+          followerId: true,
+        },
+      },
+      following: {
+        select: {
+          followingId: true,
+        },
+      },
+      profile: {
+        select: {
+          avatar: true,
+          bio: true,
+        },
+      },
+    },
+  });
+};

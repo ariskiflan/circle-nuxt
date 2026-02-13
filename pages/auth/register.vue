@@ -23,7 +23,7 @@ const handleRegister = async () => {
     const res = await register(formInput.value);
 
     if (res && res.status) {
-      useToastify("Register Berhasil", {
+      useToastify('Register Berhasil', {
         autoClose: 1000,
         position: ToastifyOption.POSITION.TOP_CENTER,
       });
@@ -57,16 +57,21 @@ const handleRegister = async () => {
 
     <!-- Form -->
     <form class="flex flex-col gap-5 w-full" @submit.prevent="handleRegister">
-      <input v-model="formInput.username" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
+      <input
+v-model="formInput.username" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
         type="text" placeholder="Username">
-      <input v-model="formInput.fullname" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
+      <input
+v-model="formInput.fullname" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
         type="text" placeholder="Fullname">
-      <input v-model="formInput.email" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
+      <input
+v-model="formInput.email" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
         type="text" placeholder="Email">
-      <input v-model="formInput.password" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
+      <input
+v-model="formInput.password" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
         type="password" placeholder="Password">
 
-      <button type="submit" :disabled="isLoading"
+      <button
+type="submit" :disabled="isLoading"
         class="bg-[#04A51E] text-white w-full py-2 rounded-3xl text-md md:text-xl font-medium hover:bg-transparent transition-all duration-100 ease-in-out hover:[box-shadow:inset_0_0_0_2px_white] cursor-pointer disabled:opacity-50">
         {{ isLoading ? "Creating..." : "Create" }}
       </button>

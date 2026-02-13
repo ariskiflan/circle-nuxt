@@ -1,13 +1,14 @@
 <script setup>
 import { getThreads } from '~/services/thread';
+import { getProfile } from "~/services/profile";
 // State untuk UI
 const showSidebar = ref(false);
 const showPostModal = ref(false);
 const showLogoutModal = ref(false);
 
-// Mengambil data user dari cookie yang sudah kita set saat login
-const userCookie = useCookie('user');
-const user = computed(() => userCookie.value || null);
+const { data: user } = await useAsyncData(
+  "profile", getProfile
+)
 
 // Data Fetching: Menggunakan useAsyncData agar data diambil saat page load
 const { data: threads, refresh: refreshThread } =
