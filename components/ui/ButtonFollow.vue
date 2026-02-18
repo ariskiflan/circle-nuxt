@@ -9,6 +9,9 @@ const props = defineProps({
     },
 });
 
+console.log(props.follows);
+
+
 const route = useRoute();
 const isFollowing = ref(false);
 
@@ -22,7 +25,7 @@ const targetUserId = computed(() => {
 const handleCreateFollows = async () => {
 
     try {
-        await createFollow(props.follows.id);
+        await createFollow(props.follows?.id);
         isFollowing.value = !isFollowing.value;
 
         if(targetUserId.value) {
@@ -37,7 +40,7 @@ const checkIsFollowing = () => {
   try {
     // ✅ BENAR: Cek di user.following untuk followingId
     const followings = currentUser.value?.user?.following?.find(
-      (f) => f.followingId === props.follows.id
+      (f) => f.followingId === props.follows?.id
     );
     isFollowing.value = !!followings;
   } catch (err) {
@@ -48,7 +51,7 @@ const checkIsFollowing = () => {
 onMounted(() => {
   checkIsFollowing();
 });
-watch([currentUser, () => props.follows.id], checkIsFollowing);
+watch([currentUser, () => props.follows?.id], checkIsFollowing);
 
 </script>
 

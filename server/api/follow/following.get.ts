@@ -3,8 +3,7 @@ import { getFollowing } from "~/server/services/followServices";
 
 export default defineEventHandler(async (event) => {
   try {
-    const query = getQuery(event);
-    const followerId = query.userId; // ID orang yang kita lihat daftar following-nya
+    const followerId = requireAuth(event); // ID orang yang kita lihat daftar following-nya query.userId; // ID orang yang kita lihat daftar following-nya
 
     if (!followerId) {
       throw createError({ 

@@ -1,7 +1,7 @@
 <script setup>
 import { getUserNotId } from '~/services/user';
 
-const { data: suggestedUsers, pending } = useLazyAsyncData(
+const { data: suggestedUsers } = useLazyAsyncData(
     "suggested-users", getUserNotId 
 )
 

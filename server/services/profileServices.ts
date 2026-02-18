@@ -1,4 +1,4 @@
-import type { IEditProfile } from "~/types/app";
+import type { IProfile } from "~/types/app";
 import { db } from "../db";
 
 export const getProfile = async (userId: number) => {
@@ -37,8 +37,8 @@ export const getProfile = async (userId: number) => {
 };
 
 // server/utils/profile.service.ts
-export const updateProfileService = async (userId: number, payload: IEditProfile) => {
-  const dataToUpdate: Partial<IEditProfile> = {};
+export const updateProfileService = async (userId: number, payload: IProfile) => {
+  const dataToUpdate: Partial<IProfile> = {};
 
   // Menggunakan pengecekan yang lebih ringkas
   if (payload.bio != null) dataToUpdate.bio = payload.bio;

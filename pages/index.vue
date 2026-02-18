@@ -10,7 +10,6 @@ const { data: user } =  useLazyAsyncData(
   "profile", getProfile
 )
 
-// Data Fetching: Menggunakan useAsyncData agar data diambil saat page load
 const { data: threads, refresh: refreshThread } =
    useLazyAsyncData('threads', getThreads)
 

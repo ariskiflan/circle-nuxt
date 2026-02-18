@@ -65,7 +65,7 @@ const handleLogout = () => {
                                 </li>
                             </NuxtLink>
 
-                            <NuxtLink to="/my-profile">
+                            <NuxtLink to="/profile">
                                 <li class="flex items-center gap-5 hover:translate-x-1 transition-all duration-100">
                                     <img class="md:w-10 w-8" src="/img/profile-circle.png" alt="">
                                     <p

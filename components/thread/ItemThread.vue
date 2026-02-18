@@ -37,11 +37,8 @@ const handleDeletethread = async () => {
       position: ToastifyOption.POSITION.TOP_CENTER,
     });
 
-    // Memicu refresh data di parent (Home.vue)
     refreshThread()
 
-    // Catatan: Untuk Toast di Nuxt 3, Anda bisa menggunakan library seperti 
-    // 'vue-sonner' atau 'nuxt-toastied' yang lebih ringan untuk Nuxt.
   } catch (error) {
     console.error("Gagal menghapus thread:", error);
   }
@@ -50,9 +47,9 @@ const handleDeletethread = async () => {
 const handleRedirectProfile = () => {
   // Cek apakah thread milik user yang sedang login atau bukan
   if (!user.value) return "/login";
-  return user.value.id !== props.thread.author.id
-    ? `/profile/${props.thread.author.id}`
-    : "/my-profile";
+  return user.value.id !== props.thread?.author.id
+    ? `/profile/${props.thread?.author.id}`
+    : "/profile";
 };
 
 const openPreview = (src) => {
@@ -71,7 +68,7 @@ const openPreview = (src) => {
           <NuxtLink :to="handleRedirectProfile()">
             <div class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-700">
               <img
-class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img/profile-circle.png'"
+class="object-cover w-full h-full" :src="thread?.author?.profile?.avatar || '/img/profile-circle.png'"
                 alt="avatar">
             </div>
           </NuxtLink>
@@ -79,43 +76,42 @@ class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img
           <div class="flex flex-col gap-3 w-full">
             <div class="flex gap-3 items-center flex-wrap">
               <p class="font-semibold text-md md:text-xl text-white">
-                {{ thread.author?.fullname }}
+                {{ thread?.author?.fullname }}
               </p>
                  <div class="w-2 h-2 rounded-full bg-gray-400" />
               <p class="text-gray-400 text-sm md:text-md">
-                @{{ thread.author?.username }}
+                @{{ thread?.author?.username }}
               </p>
               <div class="w-2 h-2 rounded-full bg-gray-400" />
               <p class="text-gray-400 text-xs md:text-sm">
                 <!-- Menggunakan Plugin global $timeAgo yang kita buat tadi -->
-                {{ $timeAgo(thread.posted_at) }}
+                {{ $timeAgo(thread?.posted_at) }}
               </p>
             </div>
 
             <div class="flex flex-col gap-3">
               <p class="text-md font-normal text-gray-200 whitespace-pre-wrap">
-                {{ thread.content }}
+                {{ thread?.content }}
               </p>
 
               <!-- Grid Gambar -->
-              <div v-if="thread.image?.length" class="grid grid-cols-2 gap-2">
-                <div v-for="(item, index) in thread.image" :key="index">
+              <div v-if="thread?.image?.length" class="grid grid-cols-2 gap-2">
+                <div v-for="(item, index) in thread?.image" :key="index">
                   <img
 :src="item.image" alt="content"
                     class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
                     @click="openPreview(item.image)">
                 </div>
 
-                <!-- Modal Preview Gambar -->
-                <!-- <ImagePreviewModal v-model="showImageModal" :image="selectedImage" /> -->
+                <UiImagePreviewModal v-model="showImageModal" :image="selectedImage" />
               </div>
             </div>
 
             <div class="flex gap-5 items-center mt-2">
               <div class="flex gap-2 items-center">
-                <ThreadLikeThread v-if="thread.id" :thread-id="Number(thread.id)" @refresh="refreshThread" />
+                <ThreadLikeThread v-if="thread?.id" :thread-id="Number(thread.id)" @refresh="refreshThread" />
                 <span class="text-sm md:text-md text-gray-400 font-medium">
-                  {{ thread._count?.like || 0 }} Likes
+                  {{ thread?._count?.like || 0 }} Likes
                 </span>
               </div>
 
@@ -123,23 +119,20 @@ class="object-cover w-full h-full" :src="thread.author?.profile?.avatar || '/img
                 <NuxtLink :to="`/thread/${thread.id}`" class="flex gap-2 items-center hover:opacity-70">
                   <img src="/img/reply.png" class="w-5 md:w-6" alt="Reply">
                   <span class="text-sm md:text-md text-gray-400 font-medium">
-                    {{ thread._count?.replies || 0 }} Replies
+                    {{ thread?._count?.replies || 0 }} Replies
                   </span>
                 </NuxtLink>
               </div>
             </div>
           </div>
 
-          <!-- Tombol Hapus (Muncul jika userId cocok) -->
           <div
-v-if="user?.id === thread.author.id"
+v-if="user?.id === thread?.author.id"
             class="absolute top-0 right-0 cursor-pointer text-gray-500 hover:text-red-500 transition-colors"
             @click="showDeleteModal = true">
-            <!-- Menggunakan Nuxt Icon -->
             <UiBaseIcon name="material-symbols:delete-outline" size="24" />
           </div>
 
-          <!-- Modal Konfirmasi -->
           <UiConfirmModal
 v-model="showDeleteModal" title="Delete thread?" description="This action cannot be undone."
             confirm-text="Delete" confirm-color="bg-red-600 hover:bg-red-700" @confirm="handleDeletethread" />

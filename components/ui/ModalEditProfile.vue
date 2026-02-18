@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getProfile, updateProfile } from "~/services/profile"
-// import type { IEditProfile } from "~/types/app"
+import type { IEditProfile } from "~/types/app"
 
 // interface Props {
 //     isOpen: boolean
@@ -25,7 +25,7 @@ const { refresh: refreshProfile } =  useLazyAsyncData(
     "profile", getProfile
 )
 
-const formData = ref({
+const formData = ref<IEditProfile>({
     fullname: "",
     username: "",
     bio: "",
@@ -48,7 +48,6 @@ watch(
                 avatar: null,
                 cover: null,
             }
-
             previewAvatar.value = props.user?.avatar || null
             previewBackground.value = props.user?.cover || null
         }
@@ -74,7 +73,7 @@ const handleBackgroundChange = (event: Event) => {
 const handleClose = () => {
     emit("close")
 }
-
+ 
 const handleSave = async () => {
     isLoading.value = true
     try {
@@ -89,7 +88,6 @@ const handleSave = async () => {
     }
 }
 </script>
-
 
 <template>
     <!-- Modal Overlay -->
@@ -106,10 +104,9 @@ const handleSave = async () => {
                     <h2 class="text-xl md:text-2xl font-semibold text-white">
                         Edit Profile
                     </h2>
-                    <Icon
-                        icon="mdi:close" 
-                        width="30" 
-                        height="30" 
+                    <UiBaseIcon
+                        name="mdi:close" 
+                       size="30"
                         class="cursor-pointer text-white hover:text-gray-300"
                         @click="handleClose" />
                 </div>
@@ -128,7 +125,7 @@ v-if="previewBackground" :src="previewBackground" alt="Background preview"
                             <div
                                 class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex flex-col items-center gap-1">
-                                    <Icon icon="mdi:camera" width="40" height="40" class="text-white" />
+                                    <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
                                     <p class="text-sm text-white font-semibold">Change Cover</p>
                                 </div>
                             </div>
@@ -148,7 +145,7 @@ v-else src="/img/profile-circle.png" alt="Default profile"
                                 class="w-full h-full object-cover">
                             <div
                                 class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Icon icon="mdi:camera" width="30" height="30" class="text-white" />
+                                <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
                             </div>
                             <input
 type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer"

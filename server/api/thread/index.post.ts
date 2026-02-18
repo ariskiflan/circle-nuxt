@@ -33,10 +33,11 @@ export default defineEventHandler(async (event) => {
             message: "success",
             data: thread,
         }
-    } catch (error: any) {
+    } catch (error) {
+        const err = error as Error;
         throw createError({
             statusCode: 500,
-            statusMessage: error.message,
+            statusMessage: err.message,
         });
     }
 })

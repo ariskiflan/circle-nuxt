@@ -1,4 +1,4 @@
-import type { ApiResponse, IProfile } from "~/types/app"
+import type { ApiResponse, IProfile, IEditProfile } from "~/types/app"
 
 export const getProfile = async () => {
     const { $api } = useNuxtApp()
@@ -6,7 +6,7 @@ export const getProfile = async () => {
     return res.data
 }
 
-export const updateProfile = async (payload: any) => {
+export const updateProfile = async (payload: IEditProfile) => {
   const { $api } = useNuxtApp()
 
   const formData = new FormData()

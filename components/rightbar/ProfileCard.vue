@@ -3,7 +3,7 @@ import { getProfile } from '~/services/profile';
 
 const isEditModalOpen = ref(false);
 
-const { data: user, pending } = useLazyAsyncData(
+const { data: user } = useLazyAsyncData(
   "profile", getProfile
 )
 
@@ -80,7 +80,7 @@ const closeEditModal = () => {
     </div>
 
     <div class="z-100">
-    <UiModalEditProfile :is-open="isEditModalOpen" :user="user" @close="closeEditModal" @updated="handleSaveProfile" />
+    <UiModalEditProfile :is-open="isEditModalOpen" :user="user" @close="closeEditModal"/>
     </div>
   </div>
 </template>
