@@ -71,7 +71,7 @@ class="relative text-md md:text-xl cursor-pointer px-4 py-2 text-center border-b
       <div v-if="activeTab === 'followers'" class="flex flex-col gap-5">
         <div v-if="followersList.length > 0">
           <div v-for="(follower, index) in followersList" :key="index">
-            <FollowListFollows :follows="follower.follower" user="currentUser" />
+            <FollowListFollows :follows="follower.follower" :user="currentUser" />
           </div>
         </div>
         <div v-else class="text-center text-gray-400 py-10">
@@ -82,7 +82,7 @@ class="relative text-md md:text-xl cursor-pointer px-4 py-2 text-center border-b
       <div v-else class="flex flex-col gap-5">
         <div v-if="followingList.length > 0">
           <div v-for="(following, index) in followingList" :key="index">
-            <FollowListFollows :follows="following.following" user="currentUser" />
+            <FollowListFollows :follows="following.following" :user="currentUser" />
           </div>
         </div>
         <div v-else class="text-center text-gray-400 py-10">

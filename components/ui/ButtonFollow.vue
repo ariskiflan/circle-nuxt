@@ -9,9 +9,6 @@ const props = defineProps({
     },
 });
 
-console.log(props.follows);
-
-
 const route = useRoute();
 const isFollowing = ref(false);
 

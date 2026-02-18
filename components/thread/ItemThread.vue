@@ -65,7 +65,7 @@ const openPreview = (src) => {
         <div class="flex gap-3 md:gap-5 relative">
 
           <!-- Avatar dengan NuxtLink -->
-          <NuxtLink :to="handleRedirectProfile()">
+          <NuxtLink v-if="props.thread?.author" :to="handleRedirectProfile()">
             <div class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-700">
               <img
 class="object-cover w-full h-full" :src="thread?.author?.profile?.avatar || '/img/profile-circle.png'"

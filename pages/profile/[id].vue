@@ -5,25 +5,17 @@ import { getUserById } from '~/services/user';
 const router = useRouter();
 const route = useRoute();
 
-console.log(route);
-
 const id = Number(route.params.id)
 
 const activeTab = ref("all");
 const showImageModal = ref(false);
 const selectedImage = ref(null);
 
-
-const {data: userById} = await useAsyncData(
+const {data: userById} =  useLazyAsyncData(
     `userById-${id}`, () => getUserById(id)
 )
 
-console.log(userById.value, "ini user id");
-
-
-const {data: threadsByUserId, refresh: refreshThreadById} = await useAsyncData(`threadsByUserId-${id}`, () => getThreadByUserId(id))  
-
-console.log(threadsByUserId.value, "ini thread user id");
+const {data: threadsByUserId, refresh: refreshThreadById} = useLazyAsyncData(`threadsByUserId-${id}`, () => getThreadByUserId(id))  
 
 const handleFollows = () => {
   navigateTo({ path: '/follow', query: { userId: id } })
@@ -52,8 +44,8 @@ const refreshThreads = async () => {
         <div class="relative">
           <div class="w-full h-[70px] md:h-[100px] rounded-2xl bg-green-500"/>
           <div
-            class="w-15 h-15 md:w-20 md:h-20 rounded-full bg-gray-400 border-4 border-black absolute bottom-[-30px] md:bottom-[-40px] left-[30px] overflow-hidden">
-            <img :src="userById?.profile?.avatar" alt="" >
+            class="w-14 h-14 md:w-20 md:h-20 rounded-full bg-gray-400 border-4 border-black absolute bottom-[-30px] md:bottom-[-40px] left-[30px] overflow-hidden">
+            <img :src="userById?.profile?.avatar" alt="" class="object-cover w-full h-full" >
           </div>
         </div>
   
