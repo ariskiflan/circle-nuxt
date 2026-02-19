@@ -94,7 +94,7 @@ class="relative bg-[#1e1e1e] w-full sm:max-w-xl
                         </h2>
     
                         <div class="xl:hidden" @click="closeModal">
-                            <UiBaseIcon icon="mdi:close" size="24"/>
+                            <UiBaseIcon name="mdi:close" size="24"/>
                         </div>
                     </div>
     

@@ -14,7 +14,7 @@ const props = defineProps({
   },
   user: {
     type: Object,
-    required: true,
+    default : null
   },
 });
 

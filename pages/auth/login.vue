@@ -6,13 +6,13 @@ definePageMeta({
   layout: false
 });
 
-
 const formInput = ref<Ilogin>({
   email: "",
   password: "",
 });
 
 const isLoading = ref(false);
+const isShowPassword = ref(false);
 
 const handleLogin = async () => {
   isLoading.value = true
@@ -46,10 +46,18 @@ const handleLogin = async () => {
   }
 }
 
+const inputType = computed(() =>
+  isShowPassword.value ? "text" : "password"
+)
+
+const togglePassword = () => {
+  isShowPassword.value = !isShowPassword.value
+}
+
 </script>
 
 <template>
-  <div class="flex flex-col h-screen justify-center w-full md:w-1/3 m-auto gap-5 p-10 md:p-0">
+  <div class="flex flex-col h-screen justify-center w-full md:w-1/2 lg:w-1/3 m-auto gap-5 p-10 md:p-0">
     <!-- Logo & Title -->
     <div class="flex flex-col gap-5">
       <img src="/img/circle.png" alt="Logo" class="w-40 md:w-64">
@@ -58,12 +66,25 @@ const handleLogin = async () => {
 
     <!-- Form -->
     <form class="flex flex-col gap-5 w-full" @submit.prevent="handleLogin">
-      <input
+
+      <div>
+        <input
 v-model="formInput.email" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
-        type="text" placeholder="Email">
-      <input
+          type="text" placeholder="Email">
+      </div>
+
+      <div class="relative">
+        <input
 v-model="formInput.password" class="border-2 px-4 py-2 rounded-xl w-full text-md md:text-xl text-black"
-        type="password" placeholder="Password">
+          :type="inputType" placeholder="Password">
+
+        <div class="absolute right-4 top-1/2 -translate-y-1/2" @click="togglePassword">
+          <UiBaseIcon
+:name="isShowPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'" size="40"
+             class="text-black" />
+        </div>
+
+      </div>
 
       <button
 type="submit" :disabled="isLoading" class="bg-[#04A51E] text-white w-full py-2 rounded-3xl text-md md:text-xl font-medium

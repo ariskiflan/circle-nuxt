@@ -9,26 +9,6 @@ const { data: suggestedUsers } = useLazyAsyncData(
 
 <template>
     <div>
-        <!-- <div v-if="pending" class="bg-[#262626] p-5 rounded-2xl flex flex-col gap-5">
-            <div class="h-6 bg-gray-700 rounded w-40 animate-pulse" />
-
-            <div class="flex flex-col gap-3 lg:h-[150px] h-[100px] overflow-auto hide-scrollbar">
-                <div v-for="i in 3" :key="i" class="flex items-center gap-5 justify-between animate-pulse">
-                    <div class="flex items-center gap-3 md:gap-5">
-                        <div class="w-8 md:w-10 h-8 md:h-10 rounded-full bg-gray-700" />
-
-                        <div class="max-w-[150px] space-y-2">
-                            <div class="h-4 bg-gray-700 rounded w-24" />
-                            <div class="h-3 bg-gray-700 rounded w-20" />
-                        </div>
-                    </div>
-
-                    <div class="h-8 w-20 bg-gray-700 rounded-lg" />
-                </div>
-            </div>
-        </div> -->
-
-
         <div  class="bg-[#262626] p-5 rounded-2xl flex flex-col gap-5">
             <p class="text-md md:text-xl font-semibold">Suggested For you</p>
 

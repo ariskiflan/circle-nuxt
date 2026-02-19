@@ -49,7 +49,7 @@ const refreshThreads = async () => {
           </div>
         </div>
   
-        <div class="flex justify-end mt-5 md:mt-10">
+        <div class="flex justify-end mt-5 md:mt-6">
           <UiButtonFollow :follows="userById" />
         </div>
   

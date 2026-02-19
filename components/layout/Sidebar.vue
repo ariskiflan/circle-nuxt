@@ -1,28 +1,5 @@
 <script setup>
-const showLogoutModal = ref(false);
-
-const handleLogout = () => {
-    try {
-        // 1. Hapus Cookie (Ganti logic Vuex Anda ke Cookie Nuxt 3)
-        const token = useCookie('token');
-        const user = useCookie('user');
-
-        token.value = null;
-        user.value = null;
-
-        // 2. Tutup Modal & Redirect
-        showLogoutModal.value = false;
-
-        useToastify("Logout Berhasil", {
-            autoClose: 1000,
-            position: ToastifyOption.POSITION.TOP_CENTER,
-        });
-        // Gunakan navigateTo untuk best practice di Nuxt
-        return navigateTo("/auth/login");
-    } catch (error) {
-        console.error("Logout failed:", error);
-    }
-};
+const {logout, showLogoutModal} = useLogout()
 </script>
 
 <template>
@@ -90,7 +67,7 @@ class="flex items-center gap-5 cursor-pointer hover:translate-x-1 transition"
                 <UiConfirmModal
 v-model="showLogoutModal" title="Logout?"
                     description="You will be signed out from your account." confirm-text="Logout"
-                    confirm-color="bg-red-600 hover:bg-red-700" @confirm="handleLogout" />
+                    confirm-color="bg-red-600 hover:bg-red-700" @confirm="logout" />
 
             </div>
         </div>

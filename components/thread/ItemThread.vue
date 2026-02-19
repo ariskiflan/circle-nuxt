@@ -46,7 +46,7 @@ const handleDeletethread = async () => {
 
 const handleRedirectProfile = () => {
   // Cek apakah thread milik user yang sedang login atau bukan
-  if (!user.value) return "/login";
+  if (!user.value) return "/auth/login";
   return user.value.id !== props.thread?.author.id
     ? `/profile/${props.thread?.author.id}`
     : "/profile";

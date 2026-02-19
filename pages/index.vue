@@ -4,7 +4,7 @@ import { getProfile } from "~/services/profile";
 // State untuk UI
 const showSidebar = ref(false);
 const showPostModal = ref(false);
-const showLogoutModal = ref(false);
+const {logout, showLogoutModal} = useLogout()
 
 const { data: user } =  useLazyAsyncData(
   "profile", getProfile
@@ -21,24 +21,7 @@ const refreshThreads = async () => {
 const openSidebar = () => showSidebar.value = true;
 const closeSidebar = () => showSidebar.value = false;
 
-const handleLogout = () => {
-  try {
-    // 1. Hapus Cookie (Ganti logic Vuex Anda ke Cookie Nuxt 3)
-    const token = useCookie('token');
-    const user = useCookie('user');
 
-    token.value = null;
-    user.value = null;
-
-    // 2. Tutup Modal & Redirect
-    showLogoutModal.value = false;
-
-    // Gunakan navigateTo untuk best practice di Nuxt
-    return navigateTo("/auth/login");
-  } catch (error) {
-    console.error("Logout failed:", error);
-  }
-};
 </script>
 
 <template>
@@ -53,7 +36,7 @@ const handleLogout = () => {
         <!-- Avatar Trigger Sidebar (Mobile) -->
         <div class="xl:hidden cursor-pointer" @click="openSidebar">
           <div class="w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden border border-gray-600">
-            <img class="object-cover w-full h-full" :src="user.avatar || '/img/profile-circle.png'" alt="avatar">
+            <img class="object-cover w-full h-full" :src="user?.avatar || '/img/profile-circle.png'" alt="avatar">
           </div>
         </div>
         <!-- Overlay Sidebar -->
@@ -111,7 +94,7 @@ const handleLogout = () => {
 
     <UiConfirmModal
 v-model="showLogoutModal" title="Logout?" description="You will be signed out from your account."
-      confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="handleLogout" />
+      confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="logout" />
   </div>
 </template>
 

@@ -50,7 +50,7 @@ const handleRedirectProfile = () => {
         <span class="text-gray-400 font-normal text-md">
           @{{ props.follows.username }}
         </span>
-        <p>{{ props.follows?.profile?.bio }}</p>
+        <!-- <p>{{ props.follows?.profile?.bio }}</p> -->
       </div>
     </div>
 

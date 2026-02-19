@@ -54,7 +54,7 @@ const closeEditModal = () => {
           </div>
         </div>
   
-        <div class="flex justify-end mt-5 md:mt-10">
+        <div class="flex justify-end mt-5 md:mt-6">
           <button
 class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-md md:text-xl hover:bg-white hover:text-black transition-colors"
             @click="openEditModal">

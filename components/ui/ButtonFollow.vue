@@ -54,7 +54,7 @@ watch([currentUser, () => props.follows?.id], checkIsFollowing);
 
 <template>
     <button
-        class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold cursor-pointer text-sm xl:text-md"
+        class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-md md:text-xl hover:bg-white hover:text-black transition-colors"
         @click="handleCreateFollows">
         {{ isFollowing ? "Unfollow" : "Follow" }}
     </button>

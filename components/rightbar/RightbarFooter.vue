@@ -6,7 +6,7 @@ const year = date.getFullYear();
 
 <template>
   <!-- Footer Web & Tablet -->
-  <div class="hidden xl:block">
+  <div class="hidden 2xl:block">
     <div class="bg-[#262626] px-5 py-2 rounded-2xl flex flex-col gap-1">
       <div class="flex items-center gap-3 flex-wrap">
         <p class="text-sm font-semibold">
@@ -36,7 +36,7 @@ const year = date.getFullYear();
   </div>
   
   <!-- Footer Mobile -->
-  <div class="block xl:hidden">
+  <div class="block 2xl:hidden">
     <div class="bg-[#262626] p-4 rounded-2xl flex flex-col gap-2 text-center">
       <div class="flex items-center gap-2 justify-center">
         <p class="text-xs font-semibold">
