@@ -10,11 +10,11 @@ const showImageModal = ref(false);
 const selectedImage = ref(null);
 
 
-const {data: user} =  useLazyAsyncData(
+const {data: user} = await useAsyncData(
     "profile", getProfile
 )
 
-const {data: threadsByUserToken} =  useLazyAsyncData(
+const {data: threadsByUserToken} = await  useAsyncData(
     `threadsByUserToken`, getThreadByToken
 )
 

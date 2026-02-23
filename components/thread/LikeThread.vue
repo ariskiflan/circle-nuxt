@@ -8,7 +8,10 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['refresh']);
+// const emit = defineEmits(['refresh']);
+
+const {refreshThread} = useThreads()
+
 
 // 1. Ambil data secara asinkron dengan useAsyncData
 // Kita gunakan key unik `like-{id}` agar Nuxt bisa membedakan cache antar thread
@@ -27,9 +30,10 @@ const handleLike = async () => {
 
         // 3. Refresh status like lokal
         await refreshLikeStatus();
+        refreshThread()
 
         // 4. Beritahu parent (Home/ThreadDetail) untuk update jumlah like total
-        emit('refresh');
+        // emit('refresh');
     } catch (err) {
         console.error("Gagal toggle like:", err);
     }

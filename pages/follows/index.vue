@@ -7,7 +7,7 @@ const router = useRouter();
 const route = useRoute();
 const activeTab = ref("followers");
 
-const {data: currentUser} =  useLazyAsyncData(
+const {data: currentUser} = await useAsyncData(
   "profile", getProfile
 )
 
@@ -15,8 +15,8 @@ const targetUserId = computed(() => {
   return route.query.userId ? Number(route.query.userId) : currentUser.value?.id;
 });
 
-const {data: followersList, refresh: refreshFollowers} = useLazyAsyncData('followers', () => getFollowers(targetUserId.value))
-const {data: followingList, refresh: refreshFollowing} = useLazyAsyncData('following', () => getFollowing(targetUserId.value))
+const {data: followersList, refresh: refreshFollowers} = await useAsyncData('followers', () => getFollowers(targetUserId.value))
+const {data: followingList, refresh: refreshFollowing} = await useAsyncData('following', () => getFollowing(targetUserId.value))
 
 const displayedUser = computed(() => {
   // Jika ada userId di query, ambil dari userById
@@ -36,7 +36,7 @@ watch(() => route.query.userId, () => {
 
 <template>
   <div>
-    <div class="pt-4 px-4 md:hidden flex items-center gap-2">
+    <div class="pt-10 px-4 md:hidden flex items-center gap-2">
       <UiBaseIcon name="mdi:arrow-back" size="40" class="cursor-pointer" @click="router.push('/')"/>
       <p class="text-lg font-semibold">
         @{{ displayedUser?.username || displayedUser?.user?.username }}

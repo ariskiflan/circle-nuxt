@@ -3,13 +3,13 @@ import { getThreadById, getReplies } from '~/services/thread';
 
 const router = useRouter();
 const route = useRoute();
-const id = route.params.id
+const id = Number(route.params.id) 
 
 const { data: threadDetail, refresh: refreshThread } =
-     useLazyAsyncData(`thread-${id}`, () => getThreadById(Number(id)));
+     await useAsyncData(`thread-${id}`, () => getThreadById(id));
 
 const { data: replies, refresh: refreshReplies } =
-     useLazyAsyncData(`replies-${id}`, () => getReplies(Number(id)));
+    await useAsyncData(`replies-${id}`, () => getReplies(id));
 
 const emitRefreshThread = () => {
     refreshThread()

@@ -11,11 +11,11 @@ const activeTab = ref("all");
 const showImageModal = ref(false);
 const selectedImage = ref(null);
 
-const {data: userById} =  useLazyAsyncData(
+const {data: userById} = await useAsyncData(
     `userById-${id}`, () => getUserById(id)
 )
 
-const {data: threadsByUserId, refresh: refreshThreadById} = useLazyAsyncData(`threadsByUserId-${id}`, () => getThreadByUserId(id))  
+const {data: threadsByUserId, refresh: refreshThreadById} = await useAsyncData(`threadsByUserId-${id}`, () => getThreadByUserId(id))  
 
 const handleFollows = () => {
   navigateTo({ path: '/follow', query: { userId: id } })

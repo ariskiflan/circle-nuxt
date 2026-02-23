@@ -15,6 +15,7 @@ const isFollowing = ref(false);
 const { data: currentUser } = useLazyAsyncData(
   "profile", getProfile
 )
+
 const targetUserId = computed(() => {
   return route.query.userId ? Number(route.query.userId) : currentUser.value?.id;
 });

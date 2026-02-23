@@ -1,19 +1,21 @@
 <script setup>
-import { getThreads } from '~/services/thread';
+// import { getThreads } from '~/services/thread';
 import { getProfile } from "~/services/profile";
 
 const showSidebar = ref(false);
 
-const { data: user } =  useLazyAsyncData(
+const { data: user } = await useAsyncData(
   "profile", getProfile
 )
 
-const { data: threads, refresh: refreshThread } =
-   useLazyAsyncData('threads', getThreads)
+const {threads} = useThreads()
 
-const refreshThreads = async () => {
-  await refreshThread(); // Fungsi bawaan useAsyncData untuk ambil data ulang
-};
+// const { data: threads, refresh: refreshThread } =
+//   await useAsyncData('threads', getThreads)
+
+// const refreshThreads = async () => {
+//   await refreshThread(); // Fungsi bawaan useAsyncData untuk ambil data ulang
+// };
 
 const openSidebar = () => showSidebar.value = true;
 const closeSidebar = () => showSidebar.value = false;
@@ -46,13 +48,13 @@ const closeSidebar = () => showSidebar.value = false;
       </div>
 
       <!-- Komponen Tambah Thread -->
-      <ThreadAddThread @success="refreshThreads" />
+      <ThreadAddThread />
     </div>
 
     <!-- List Threads -->
     <div class="mt-5">
       <div v-for="item in threads" :key="item.id">
-        <ThreadItemThread :thread="item" @refresh="refreshThreads" />
+        <ThreadItemThread :thread="item" />
       </div>
     </div>
 

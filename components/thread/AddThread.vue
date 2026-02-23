@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 // Emit untuk refresh data di parent
-const emit = defineEmits(['success']);
+// const emit = defineEmits(['success']);
 
 const postThreads = ref({
   content: "",
@@ -25,6 +25,8 @@ const route = useRoute();
 const {data: user} =  useLazyAsyncData(
     "profile", getProfile
 )
+
+const {refreshThread} = useThreads()
 
 const handlePostThreads = async (e) => {
   e.preventDefault();
@@ -41,7 +43,8 @@ const handlePostThreads = async (e) => {
         });
 
       // Beri tahu parent untuk refresh data
-      emit('success');
+      // emit('success');
+      refreshThread()
       
       // Reset form
       postThreads.value = { content: "", image: null, threadId: null };
