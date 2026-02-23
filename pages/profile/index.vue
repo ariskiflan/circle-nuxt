@@ -2,7 +2,6 @@
 import { getProfile } from '~/services/profile';
 import { getThreadByToken } from '~/services/thread';
 
-
 const router = useRouter();
 
 const activeTab = ref("all");
@@ -29,6 +28,11 @@ const openEditModal = () => {
 
 const closeEditModal = () => {
   isEditModalOpen.value = false;
+};
+
+const openPreview = (src) => {
+  selectedImage.value = src;
+  showImageModal.value = true;
 };
 
 </script>
@@ -104,7 +108,7 @@ class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-whi
       </div>
     </div>
   
-    <div>
+    <div class="mb-20">
       <template v-if="activeTab === 'all'">
         <div v-for="item in threadsByUserToken" :key="item.id">
           <ThreadItemThread :thread="item" />
@@ -116,7 +120,7 @@ class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-whi
           <template v-for="thread in threadsByUserToken" :key="thread.id">
             <img
 v-for="img in thread.image || []" :key="img.id" :src="img.image" alt="media"
-              class="w-full h-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+              class="w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
               @click="openPreview(img.image)" >
           </template>
         </div>

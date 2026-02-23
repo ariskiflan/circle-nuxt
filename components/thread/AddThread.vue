@@ -1,5 +1,5 @@
 <script setup>
-// Nuxt auto-imports: ref, computed, useRoute, useCookie
+import { getProfile } from "~/services/profile";
 import { createThread } from "~/services/thread";
 
 const props = defineProps({
@@ -22,9 +22,9 @@ const inputRef = ref(null);
 
 const route = useRoute();
 
-// Ambil data user dari cookie (pengganti Vuex)
-const userCookie = useCookie('user');
-const user = computed(() => userCookie.value || null);
+const {data: user} =  useLazyAsyncData(
+    "profile", getProfile
+)
 
 const handlePostThreads = async (e) => {
   e.preventDefault();

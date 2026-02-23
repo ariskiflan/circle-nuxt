@@ -95,7 +95,7 @@ const refreshThreads = async () => {
       </div>
     </div>
   
-    <div>
+    <div class="mb-20">
       <div v-if="activeTab === 'all'">
         <div v-for="item in threadsByUserId" :key="item.id">
           <ThreadItemThread :thread="item" @refresh="refreshThreads" />
@@ -105,7 +105,7 @@ const refreshThreads = async () => {
       <div v-else class="grid grid-cols-2 gap-2 p-5">
         <template v-for="thread in threadsByUserId" :key="thread.id">
           <img
-v-for="img in thread.image || []" :key="img.id" :src="img.image" alt="media" class="w-full"
+v-for="img in thread.image || []" :key="img.id" :src="img.image" alt="media" class="w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
             @click="openPreview(img.image)" >
         </template>
       </div>

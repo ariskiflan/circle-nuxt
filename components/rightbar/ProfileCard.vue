@@ -1,6 +1,7 @@
 <script setup>
 import { getProfile } from '~/services/profile';
 
+const router = useRouter();
 const isEditModalOpen = ref(false);
 
 const { data: user } = useLazyAsyncData(
@@ -13,6 +14,10 @@ const openEditModal = () => {
 
 const closeEditModal = () => {
   isEditModalOpen.value = false;
+};
+
+const handleFollows = () => {
+  router.push("/follows");
 };
 
 </script>
@@ -35,7 +40,7 @@ const closeEditModal = () => {
 
       <div class="flex justify-end">
         <button
-          class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-sm lg:text-md"
+          class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-sm lg:text-md hover:bg-white hover:text-black transition-colors"
           @click="openEditModal">
           Edit Profile
         </button>

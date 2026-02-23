@@ -8,20 +8,20 @@ import type { IEditProfile } from "~/types/app"
 // }
 
 const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  user: {
-    type: Object,
-    default : null
-  },
+    isOpen: {
+        type: Boolean,
+        required: true,
+    },
+    user: {
+        type: Object,
+        default: null
+    },
 });
 
 // const props = defineProps<Props>()
 const emit = defineEmits(["close"])
 
-const { refresh: refreshProfile } =  useLazyAsyncData(
+const { refresh: refreshProfile } = useLazyAsyncData(
     "profile", getProfile
 )
 
@@ -73,7 +73,7 @@ const handleBackgroundChange = (event: Event) => {
 const handleClose = () => {
     emit("close")
 }
- 
+
 const handleSave = async () => {
     isLoading.value = true
     try {
@@ -90,116 +90,115 @@ const handleSave = async () => {
 </script>
 
 <template>
-    <!-- Modal Overlay -->
-    <Transition name="modal">
-        <div
-            v-if="isOpen" 
-            class="fixed inset-0 bg-black/80 bg-opacity-75 flex items-center justify-center z-999 p-4"
-            @click.self="handleClose">
-            <!-- Modal Content -->
-            <div class="modal-content bg-[#1a1a1a] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                <!-- Header -->
-                <div
-                    class="sticky top-0 bg-[#1a1a1a] border-b border-gray-700 px-5 py-4 flex items-center justify-between z-999">
-                    <h2 class="text-xl md:text-2xl font-semibold text-white">
-                        Edit Profile
-                    </h2>
-                    <UiBaseIcon
-                        name="mdi:close" 
-                       size="30"
-                        class="cursor-pointer text-white hover:text-gray-300"
-                        @click="handleClose" />
-                </div>
+    <Teleport to="body">
+        <!-- Modal Overlay -->
+        <Transition name="modal">
+            <div
+v-if="isOpen" class="fixed inset-0 bg-black/80 bg-opacity-75 flex items-center justify-center z-40 p-4"
+                @click.self="handleClose">
+                <!-- Modal Content -->
+                <div class="modal-content bg-[#1a1a1a] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto z-40">
+                    <!-- Header -->
+                    <div
+                        class="sticky top-0 bg-[#1a1a1a] border-b border-gray-700 px-5 py-4 flex items-center justify-between z-999">
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">
+                            Edit Profile
+                        </h2>
+                        <UiBaseIcon
+name="mdi:close" size="30" class="cursor-pointer text-white hover:text-gray-300"
+                            @click="handleClose" />
+                    </div>
 
 
-                <!-- Form -->
-                <div class="p-5 flex flex-col gap-5">
-                    <!-- Background & Avatar Upload Section -->
-                    <div class="relative mb-10">
-                        <!-- Background Image -->
-                        <div
-                            class="relative w-full h-[70px] md:h-[100px] rounded-2xl overflow-hidden bg-green-500 group cursor-pointer">
-                            <img
+                    <!-- Form -->
+                    <div class="p-5 flex flex-col gap-3">
+                        <!-- Background & Avatar Upload Section -->
+                        <div class="relative mb-10">
+                            <!-- Background Image -->
+                            <div
+                                class="relative w-full h-[65px] md:h-[80px] rounded-2xl overflow-hidden bg-green-500 group cursor-pointer">
+                                <img
 v-if="previewBackground" :src="previewBackground" alt="Background preview"
-                                class="w-full h-full object-cover">
-                            <div
-                                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <div class="flex flex-col items-center gap-1">
-                                    <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
-                                    <p class="text-sm text-white font-semibold">Change Cover</p>
+                                    class="w-full h-full object-cover">
+                                <div
+                                    class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="flex flex-col items-center gap-1">
+                                        <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
+                                        <p class="text-sm text-white font-semibold">Change Cover</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <input
+                                <input
 type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer"
-                                @change="handleBackgroundChange">
-                        </div>
+                                    @change="handleBackgroundChange">
+                            </div>
 
-                        <!-- Avatar Image -->
-                        <div
-                            class="w-15 h-15 md:w-20 md:h-20 rounded-full bg-gray-400 border-4 border-[#1a1a1a] absolute bottom-[-30px] md:bottom-[-40px] left-[30px] overflow-hidden group cursor-pointer">
-                            <img
-v-if="previewAvatar" :src="previewAvatar" alt="Profile preview"
-                                class="w-full h-full object-cover">
-                            <img
-v-else src="/img/profile-circle.png" alt="Default profile"
-                                class="w-full h-full object-cover">
+                            <!-- Avatar Image -->
                             <div
-                                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
-                            </div>
-                            <input
+                                class="w-14 h-14 md:w-20 md:h-20 rounded-full bg-gray-400 border-4 border-[#1a1a1a] absolute bottom-[-30px] md:bottom-[-40px] left-[30px] overflow-hidden group cursor-pointer">
+                                <img
+v-if="previewAvatar" :src="previewAvatar" alt="Profile preview"
+                                    class="w-full h-full object-cover">
+                                <img
+v-else src="/img/profile-circle.png" alt="Default profile"
+                                    class="w-full h-full object-cover">
+                                <div
+                                    class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <UiBaseIcon name="mdi:camera" size="40" class="text-white" />
+                                </div>
+                                <input
 type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer"
-                                @change="handleAvatarChange">
+                                    @change="handleAvatarChange">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Fullname Input -->
-                    <div class="flex flex-col gap-2">
-                        <label class="text-white font-semibold text-sm md:text-md">
-                            Full Name
-                        </label>
-                        <input
+                        <!-- Fullname Input -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-semibold text-sm md:text-md">
+                                Full Name
+                            </label>
+                            <input
 v-model="formData.fullname" type="text" placeholder="Enter your full name"
-                            class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500">
-                    </div>
+                                class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
 
-                    <!-- Username Input -->
-                    <div class="flex flex-col gap-2">
-                        <label class="text-white font-semibold text-sm md:text-md">
-                            Username
-                        </label>
-                        <input
+                        <!-- Username Input -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-semibold text-sm md:text-md">
+                                Username
+                            </label>
+                            <input
 v-model="formData.username" type="text" placeholder="Enter your username"
-                            class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500">
-                    </div>
+                                class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
 
-                    <!-- Bio Input -->
-                    <div class="flex flex-col gap-2">
-                        <label class="text-white font-semibold text-sm md:text-md">
-                            Bio
-                        </label>
-                        <textarea
+                        <!-- Bio Input -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-semibold text-sm md:text-md">
+                                Bio
+                            </label>
+                            <textarea
 v-model="formData.bio" placeholder="Tell us about yourself" rows="4"
-                            class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500 resize-none" />
-                    </div>
+                                class="bg-[#3f3f3f] text-white px-4 py-2 md:py-3 rounded-lg outline-none focus:ring-2 focus:ring-green-500 resize-none" />
+                        </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-3">
-                        <button
-                            class="flex-1 border-2 border-gray-500 text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-                            :disabled="isLoading" @click="handleClose">
-                            Cancel
-                        </button>
-                        <button
-                            class="flex-1 bg-green-500 text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            :disabled="isLoading" @click="handleSave">
-                            {{ isLoading ? "Saving..." : "Save Changes" }}
-                        </button>
+                        <!-- Action Buttons -->
+                        <div class="flex gap-3 mt-3">
+                            <button
+                                class="flex-1 border-2 border-gray-500 text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+                                :disabled="isLoading" @click="handleClose">
+                                Cancel
+                            </button>
+                            <button
+                                class="flex-1 bg-green-500 text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                :disabled="isLoading" @click="handleSave">
+                                {{ isLoading ? "Saving..." : "Save Changes" }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </Transition>
+        </Transition>
+    </Teleport>
 </template>
 
 <style scoped>
