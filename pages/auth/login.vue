@@ -81,7 +81,7 @@ v-model="formInput.password" class="border-2 px-4 py-2 rounded-xl w-full text-md
         <div class="absolute right-4 top-1/2 -translate-y-1/2" @click="togglePassword">
           <UiBaseIcon
 :name="isShowPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'" size="40"
-             class="text-black" />
+             class="text-black cursor-pointer" />
         </div>
 
       </div>
