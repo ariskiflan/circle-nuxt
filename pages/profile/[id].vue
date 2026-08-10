@@ -15,10 +15,15 @@ const {data: userById} = await useAsyncData(
     `userById-${id}`, () => getUserById(id)
 )
 
+useSeoMeta({
+  title: () =>  `${userById.value?.fullname}'s Profile`,
+  description: "My Profile in Circle App"
+})
+
 const {data: threadsByUserId, refresh: refreshThreadById} = await useAsyncData(`threadsByUserId-${id}`, () => getThreadByUserId(id))  
 
 const handleFollows = () => {
-  navigateTo({ path: '/follow', query: { userId: id } })
+  navigateTo({ path: '/follows', query: { userId: id } })
 }
 
 const openPreview = (src) => {
@@ -60,12 +65,12 @@ const refreshThreads = async () => {
           </span>
           <p class="text-md font-normal">{{ userById?.profile?.bio }}</p>
   
-          <div class="flex items-center gap-5" @click="handleFollows">
-            <p class="text-sm md:text-md font-semibold">
+          <div class="flex items-center gap-5" >
+            <p class="text-sm md:text-md font-semibold cursor-pointer" @click="handleFollows">
               {{ userById?.following?.length }}
               <span class="text-gray-400 font-normal">Following</span>
             </p>
-            <p class="text-sm md:text-md font-semibold">
+            <p class="text-sm md:text-md font-semibold cursor-pointer" @click="handleFollows">
               {{ userById?.follower?.length }}
               <span class="text-gray-400 font-normal">Followers</span>
             </p>

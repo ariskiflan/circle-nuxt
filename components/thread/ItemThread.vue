@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 // Emit untuk memberitahu Home.vue agar melakukan refresh data setelah hapus
-// const emit = defineEmits(['refresh']);
+const emit = defineEmits(['refresh']);
 
 // State UI
 const showDeleteModal = ref(false);
@@ -22,9 +22,6 @@ const { data: user } = await useAsyncData(
   "profile", getProfile
 )
 
-// const refreshThread = () => {
-//   emit('refresh');
-// };
 
 const handleDeletethread = async () => {
 
@@ -37,7 +34,7 @@ const handleDeletethread = async () => {
       position: ToastifyOption.POSITION.TOP_CENTER,
     });
 
-    refreshThread()
+    emit('refresh')
 
   } catch (error) {
     console.error("Gagal menghapus thread:", error);
@@ -109,7 +106,11 @@ class="object-cover w-full h-full" :src="thread?.author?.profile?.avatar || '/im
 
             <div class="flex gap-5 items-center mt-2">
               <div class="flex gap-2 items-center">
-                <ThreadLikeThread v-if="thread?.id" :thread-id="Number(thread.id)" />
+                <ThreadLikeThread
+                  v-if="thread?.id"
+                  :thread-id="Number(thread.id)"
+                  @refresh="emit('refresh')"
+                />
                 <span class="text-sm md:text-md text-gray-400 font-medium">
                   {{ thread?._count?.like || 0 }} Likes
                 </span>

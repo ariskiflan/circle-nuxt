@@ -182,6 +182,21 @@ const countOccurrences = (arr, val) => {
 }
 console.log(countOccurrences([1, 2, 3, 2, 2], 2));
 
+// 16
+// Buat fungsi longestWord(str) yang mengembalikan kata terpanjang dari sebuah kalimat. 
+// Jika ada dua kata sama panjang, kembalikan yang pertama.
+const longestWord = (str) => {
+    const kata = str.split(' ')
+    let kataTerpanjang = ''
+
+    for (let i = 0; i < kata.length; i++) {
+      if (kata[i].length > kataTerpanjang.length) {
+        kataTerpanjang = kata[i]
+      }
+    }
+    return kataTerpanjang
+}
+console.log(longestWord("I love JavaScript"))
 
 </script>
 

@@ -2,6 +2,11 @@
 import { getProfile } from '~/services/profile';
 import { getThreadByToken } from '~/services/thread';
 
+useSeoMeta({
+  title: "My Profile",
+  description: "My Profile in Circle App"
+})
+
 const router = useRouter();
 
 const activeTab = ref("all");
@@ -74,13 +79,13 @@ class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-whi
           <p class="text-sm md:text-md font-normal">{{ user?.bio }}</p>
           <div class="flex items-center gap-5">
             <p class="text-sm md:text-md font-semibold cursor-pointer hover:underline" @click="handleFollows">
-              {{ user?.user?.following?.length || 0 }}
-              <span class="text-gray-400 font-normal text-sm md:text-md">Following</span>
-            </p>
-  
-            <p class="text-sm md:text-md font-semibold cursor-pointer hover:underline" @click="handleFollows">
               {{ user?.user?.follower?.length || 0 }}
               <span class="text-gray-400 font-normal text-sm md:text-md">Followers</span>
+            </p>
+
+              <p class="text-sm md:text-md font-semibold cursor-pointer hover:underline" @click="handleFollows">
+              {{ user?.user?.following?.length || 0 }}
+              <span class="text-gray-400 font-normal text-sm md:text-md">Following</span>
             </p>
           </div>
         </div>

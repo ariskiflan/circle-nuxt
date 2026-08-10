@@ -2,6 +2,15 @@
 // import { getThreads } from '~/services/thread';
 import { getProfile } from "~/services/profile";
 
+useSeoMeta({
+  title: 'Home',
+  description: 'Halaman utama Circle App, tempat berbagi thread dan berinteraksi dengan komunitas.',
+  ogTitle: 'Home',
+  ogDescription: 'Halaman utama Circle App, tempat berbagi thread dan berinteraksi dengan komunitas.',
+  // ogImage: 'https://example.com/image.png',
+  // twitterCard: 'summary_large_image',
+})
+
 const showSidebar = ref(false);
 
 const { data: user } = await useAsyncData(

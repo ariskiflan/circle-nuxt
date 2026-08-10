@@ -29,6 +29,8 @@ const inputRef = ref(null);
 
 const route = useRoute();
 
+const {refreshThread} = useThreads()
+
 // Ambil data user dari cookie (pengganti Vuex)
 const userCookie = useCookie('user');
 const user = computed(() => userCookie.value || null);
@@ -42,6 +44,9 @@ const handlePostThreads = async (e) => {
 
     if (postThreads.value.content || postThreads.value.image) {
       await createThread(postThreads.value);
+      
+      refreshThread()
+
       useToastify("Add Thread Success", {
             autoClose: 1000,
             position: ToastifyOption.POSITION.TOP_CENTER,
@@ -106,10 +111,11 @@ class="relative bg-[#1e1e1e] w-full sm:max-w-xl
     
                         <div class="flex-1 flex flex-col gap-4">
                             <input
-v-model="postThreads.content" type="text"
-                                class="w-full text-white bg-transparent text-base outline-none" :placeholder="
+                             v-model="postThreads.content"
+type="text" class="w-full text-white bg-transparent text-base outline-none"
+                                :placeholder="
                       route.path === '/' ? `What's on your mind?` : 'Type your reply'
-                    " >
+                    " @keydown.enter="handlePostThreads" >
     
                             <!-- Preview -->
                             <div v-if="preview.length" class="grid grid-cols-2 gap-2">

@@ -8,7 +8,7 @@ const props = defineProps({
     },
 });
 
-// const emit = defineEmits(['refresh']);
+const emit = defineEmits(['refresh']);
 
 const {refreshThread} = useThreads()
 
@@ -33,7 +33,7 @@ const handleLike = async () => {
         refreshThread()
 
         // 4. Beritahu parent (Home/ThreadDetail) untuk update jumlah like total
-        // emit('refresh');
+        emit('refresh');
     } catch (err) {
         console.error("Gagal toggle like:", err);
     }

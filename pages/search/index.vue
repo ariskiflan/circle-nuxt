@@ -2,6 +2,11 @@
 import { getProfile } from '~/services/profile';
 import { getUsers } from '~/services/user';
 
+useSeoMeta({
+  title: "Search",
+  description: "Search for users in Circle App"
+})
+
 
 const input = ref("");
 const searchResult = ref([]);

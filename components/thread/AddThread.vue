@@ -9,8 +9,9 @@ const props = defineProps({
   },
 });
 
+
 // Emit untuk refresh data di parent
-// const emit = defineEmits(['success']);
+const emit = defineEmits(['success']);
 
 const postThreads = ref({
   content: "",
@@ -43,7 +44,7 @@ const handlePostThreads = async (e) => {
         });
 
       // Beri tahu parent untuk refresh data
-      // emit('success');
+      emit('success');
       refreshThread()
       
       // Reset form
@@ -88,10 +89,11 @@ const handleImage = () => {
     
       <div class="flex-1 flex items-center gap-3">
         <input 
-          v-model="postThreads.content" 
-          type="text"
-          class="flex-1 sm:text-xl text-sm text-white bg-transparent pr-4 py-2 outline-none" 
+        v-model="postThreads.content"
+          type="text" 
+          class="flex-1 sm:text-xl text-sm text-white bg-transparent pr-4 py-2 outline-none"
           :placeholder="route.path === '/' ? `What's on your mind?` : 'Type Your Reply'" 
+          @keydown.enter="handlePostThreads" 
         >
   
         <button type="button" class="flex-shrink-0" @click="handleImage">

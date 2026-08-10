@@ -1,7 +1,12 @@
 <script setup>
 import { getFollowers, getFollowing } from '~/services/follow';
 import { getProfile } from '~/services/profile';
+import { getUserById } from '~/services/user';
 
+useSeoMeta({
+  title: "Follows",
+  description: "Follows in Circle App"
+})
 
 const router = useRouter();
 const route = useRoute();
@@ -15,21 +20,28 @@ const targetUserId = computed(() => {
   return route.query.userId ? Number(route.query.userId) : currentUser.value?.id;
 });
 
-const {data: followersList, refresh: refreshFollowers} = await useAsyncData('followers', () => getFollowers(targetUserId.value))
-const {data: followingList, refresh: refreshFollowing} = await useAsyncData('following', () => getFollowing(targetUserId.value))
+const { data: targetUser, refresh: refreshTargetUser } = await useAsyncData(
+  "target-user",
+  () => getUserById(targetUserId.value)
+)
+
+const {data: followersList, refresh: refreshFollowers} = await useAsyncData(
+  "followers",
+  () => getFollowers(targetUserId.value)
+)
+const {data: followingList, refresh: refreshFollowing} = await useAsyncData(
+  "following",
+  () => getFollowing(targetUserId.value)
+)
 
 const displayedUser = computed(() => {
-  // Jika ada userId di query, ambil dari userById
-  if (route.query.userId) {
-    return userById.value;
-  }
-  // Jika tidak ada, tampilkan currentUser
-  return currentUser.value;
+  return targetUser.value || currentUser.value;
 });
 
-watch(() => route.query.userId, () => {
-  refreshFollowers();
-  refreshFollowing();
+watch(targetUserId, async () => {
+  await refreshTargetUser();
+  await refreshFollowers();
+  await refreshFollowing();
 });
 
 </script>
@@ -38,7 +50,7 @@ watch(() => route.query.userId, () => {
   <div>
     <div class="pt-10 px-4 md:hidden flex items-center gap-2">
       <UiBaseIcon name="mdi:arrow-back" size="40" class="cursor-pointer" @click="router.push('/')"/>
-      <p class="text-lg font-semibold">
+      <p class="text-xl font-semibold">
         @{{ displayedUser?.username || displayedUser?.user?.username }}
       </p>
     </div>
@@ -68,8 +80,8 @@ class="relative text-md md:text-xl cursor-pointer px-4 py-2 text-center border-b
     </div>
   
     <div class="p-5">
-      <div v-if="activeTab === 'followers'" class="flex flex-col gap-5">
-        <div v-if="followersList?.length > 0">
+      <div v-if="activeTab === 'followers'" >
+        <div v-if="followersList?.length > 0" class="flex flex-col gap-5">
           <div v-for="(follower, index) in followersList" :key="index">
             <FollowListFollows :follows="follower.follower" :user="currentUser" />
           </div>
@@ -79,8 +91,8 @@ class="relative text-md md:text-xl cursor-pointer px-4 py-2 text-center border-b
         </div>
       </div>
   
-      <div v-else class="flex flex-col gap-5">
-        <div v-if="followingList?.length > 0">
+      <div v-else >
+        <div v-if="followingList?.length > 0" class="flex flex-col gap-5">
           <div v-for="(following, index) in followingList" :key="index">
             <FollowListFollows :follows="following.following" :user="currentUser" />
           </div>

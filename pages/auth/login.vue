@@ -6,6 +6,11 @@ definePageMeta({
   layout: false
 });
 
+useSeoMeta({
+  title: "Login",
+  description: "Login to Circle App"
+})
+
 const formInput = ref<Ilogin>({
   email: "",
   password: "",

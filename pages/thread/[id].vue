@@ -1,6 +1,11 @@
 <script setup>
 import { getThreadById, getReplies } from '~/services/thread';
 
+useSeoMeta({
+  title: "Thread Detail",
+  description: "Detail thread di Circle App"
+})
+
 const router = useRouter();
 const route = useRoute();
 const id = Number(route.params.id) 
@@ -19,8 +24,10 @@ const emitRefreshThread = () => {
 </script>
 
 <template>
-    <div>
-        <div class="px-5 pt-10 pb-5 md:pb-0 md-pt-0 md:py-10">
+    <div class='w-full mb-20'>
+
+        <div class="sticky top-0 z-10 bg-[#1d1d1d]">
+            <div class="px-5 pt-10 pb-5 md:pb-0 md-pt-0 md:py-10">
             <div class="flex gap-3 items-center">
                 <UiBaseIcon name="mdi:arrow-back" size="40" class="cursor-pointer" @click="router.push('/')" />
                 <p class="text-xl md:text-3xl font-semibold">Status</p>
@@ -82,10 +89,12 @@ const emitRefreshThread = () => {
         </div>
 
         <ThreadAddThread :thread-id="id" @success="emitRefreshThread" />
+        </div>
+        
 
         <div>
             <div v-for="item in replies" :key="item.id">
-                <ThreadItemThread :thread="item" />
+                <ThreadItemThread :thread="item" @refresh='emitRefreshThread' />
             </div>
         </div>
     </div>

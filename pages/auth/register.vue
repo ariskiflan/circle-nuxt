@@ -6,6 +6,11 @@ definePageMeta({
   layout: false
 });
 
+useSeoMeta({
+  title: "Register",
+  description: "Register to Circle App"
+})
+
 const router = useRouter();
 const isShowPassword = ref(false);
 
