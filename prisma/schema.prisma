@@ -30,6 +30,9 @@ model User {
   profile   Profile?
   thread    Thread[]
   like      Like[]   @relation("user")
+
+  conversations ConversationParticipant[]
+  messages      Message[]
 }
 
 model Follow {
@@ -79,4 +82,39 @@ id Int @id @default(autoincrement())
 image String
 threadId Int
 thread Thread @relation(fields: [threadId], references: [id],onDelete: Cascade )
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  @@index([updatedAt])
+}
+
+model ConversationParticipant {
+  conversationId Int
+  userId         Int
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([conversationId, userId])
+}
+
+model Message {
+  id             Int      @id @default(autoincrement())
+  content        String
+  senderId       Int
+  conversationId Int
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  sender       User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
 }

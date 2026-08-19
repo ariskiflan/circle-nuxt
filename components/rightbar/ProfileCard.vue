@@ -1,5 +1,6 @@
 <script setup>
 import { getProfile } from '~/services/profile';
+const {logout, showLogoutModal} = useLogout()
 
 const router = useRouter();
 const isEditModalOpen = ref(false);
@@ -25,7 +26,19 @@ const handleFollows = () => {
 <template>
   <div>
     <div class="bg-[#262626] p-5 rounded-2xl flex flex-col gap-4">
-      <p class="text-xl md:text-2xl font-semibold">My Profile</p>
+
+      <div class="flex justify-between">
+        <p class="text-xl md:text-2xl font-semibold">My Profile</p>
+
+        <div class="cursor-pointer block md:hidden" @click="showLogoutModal = true">
+          <img class="w-7" src="/img/logout.png" alt="Logout">
+        </div>
+      </div>
+
+        <UiConfirmModal
+v-model="showLogoutModal" title="Logout?" description="You will be signed out from your account."
+      confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="logout" />
+   
 
       <div class="relative">
         <div class="w-full h-[65px] md:h-[80px] rounded-2xl overflow-hidden">

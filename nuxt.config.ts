@@ -21,6 +21,11 @@ export default defineNuxtConfig({
   css: [
     "~/assets/css//index.css"
   ],
+  nitro: {
+    experimental: {
+      websocket: true,
+    },
+  },
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/tailwindcss',

@@ -20,6 +20,7 @@ const enum Estatus {
 }
 
 export interface IProfile {
+  id?: number
   bio?: string;
   avatar?: string;
   cover?: string;
@@ -77,7 +78,7 @@ export interface IRegisterResponse {
   message: string;
   data: {
     user: IUser;
-  profile: IProfile;
+    profile: IProfile;
   };
 }
 
@@ -95,4 +96,39 @@ export interface Ilogin {
 export interface Ifollow {
   followerId: number;
   followingId: number;
+}
+
+export interface IChatUser {
+  id: number;
+  username: string;
+  fullname: string;
+  profile?: {
+    avatar?: string | null;
+  } | null;
+}
+
+export interface IChatMessage {
+  id: number;
+  content: string;
+  senderId: number;
+  conversationId: number;
+  isRead: boolean;
+  createdAt: string;
+  sender: IChatUser;
+}
+
+export interface IConversation {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  participants: {
+    userId: number;
+    user: IChatUser;
+  }[];
+  messages?: IChatMessage[];
+}
+
+export interface IChatListResponse {
+  conversations: IConversation[];
+  unreadCount: number;
 }

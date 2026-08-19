@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import {computed} from 'vue';
 const showPostModal = ref(false);
-const {logout, showLogoutModal} = useLogout()
+const route = useRoute()
+const showBottomNav = computed(() => !route.path.startsWith('/chat'))
+
 </script>
 
 <template>
@@ -17,6 +20,7 @@ const {logout, showLogoutModal} = useLogout()
 
       <!-- Bottom Navbar (Mobile Only) -->
     <div
+    v-if="showBottomNav"
       class="bg-[#04A51E] w-[90%] rounded-3xl fixed bottom-4 left-1/2 -translate-x-1/2 block md:hidden z-30 shadow-lg">
       <div class="flex items-center justify-between px-6 py-2">
         <NuxtLink to="/">
@@ -36,17 +40,21 @@ const {logout, showLogoutModal} = useLogout()
           <img class="w-7" src="/img/heart.png" alt="Follows">
         </NuxtLink>
 
-        <div class="cursor-pointer" @click="showLogoutModal = true">
+        <NuxtLink to="/chat">
+          <UiBaseIcon name="mynaui:chat" size="30" class="text-white" />
+        </NuxtLink>
+
+        <!-- <div class="cursor-pointer" @click="showLogoutModal = true">
           <img class="w-7" src="/img/logout.png" alt="Logout">
-        </div>
+        </div> -->
       </div>
     </div>
 
     <ThreadModalAddThread v-model="showPostModal" />
 
-     <UiConfirmModal
+     <!-- <UiConfirmModal
 v-model="showLogoutModal" title="Logout?" description="You will be signed out from your account."
-      confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="logout" />
+      confirm-text="Logout" confirm-color="bg-red-600 hover:bg-red-700" @confirm="logout" /> -->
     
     </main>
 

@@ -42,6 +42,16 @@ const {logout, showLogoutModal} = useLogout()
                                 </li>
                             </NuxtLink>
 
+                            <NuxtLink to="/chat">
+                                <li class="flex items-center gap-5 hover:translate-x-1 transition-all duration-100">
+                                    <UiBaseIcon name="mynaui:chat" size="40" class="text-white" />
+                                    <p
+                                        class="md:text-2xl text-xl text-white font-medium hover:font-bold cursor-pointer">
+                                        Chat
+                                    </p>
+                                </li>
+                            </NuxtLink>
+
                             <NuxtLink to="/profile">
                                 <li class="flex items-center gap-5 hover:translate-x-1 transition-all duration-100">
                                     <img class="md:w-10 w-8" src="/img/profile-circle.png" alt="">

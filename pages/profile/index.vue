@@ -65,7 +65,7 @@ const openPreview = (src) => {
   
         <div class="flex justify-end mt-5 md:mt-6">
           <button
-class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-md md:text-xl hover:bg-white hover:text-black transition-colors"
+class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-white font-semibold text-sm lg:text-md hover:bg-white hover:text-black transition-colors"
             @click="openEditModal">
             Edit Profile
           </button>
@@ -122,12 +122,42 @@ class="flex border-2 border-white py-1 px-3 md:py-2 md:px-4 rounded-2xl text-whi
   
       <template v-else>
         <div class="grid grid-cols-2 gap-2 p-5">
-          <template v-for="thread in threadsByUserToken" :key="thread.id">
+          <!-- <template v-for="thread in threadsByUserToken" :key="thread.id">
             <img
 v-for="img in thread.image || []" :key="img.id" :src="img.image" alt="media"
               class="w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
               @click="openPreview(img.image)" >
-          </template>
+          </template> -->
+
+          <template v-if="threadsByUserToken.some((thread) => thread.image?.length)">
+    <template
+      v-for="thread in threadsByUserToken"
+      :key="thread.id"
+    >
+      <img
+        v-for="img in thread.image || []"
+        :key="img.id"
+        :src="img.image"
+        alt="media"
+        class="w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+        @click="openPreview(img.image)"
+      >
+    </template>
+  </template>
+
+  <div
+    v-else
+    class="col-span-2 flex flex-col items-center justify-center py-10 text-gray-400"
+  >
+    <UiBaseIcon
+      name="mdi:image-off-outline"
+      size="40"
+      class="mb-2"
+    />
+    <p class="text-sm">
+      Tidak ada media
+    </p>
+  </div>
         </div>
       </template>
     </div>
